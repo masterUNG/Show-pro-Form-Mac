@@ -3,6 +3,9 @@
     package="pbru.yaemsak.chonlakan.showpro">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="com.google.android.provider.gsf.permission.READ_GSERVICES"/>
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
