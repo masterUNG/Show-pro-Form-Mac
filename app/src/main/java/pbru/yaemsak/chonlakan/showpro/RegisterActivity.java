@@ -3,13 +3,10 @@ package pbru.yaemsak.chonlakan.showpro;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Address;
-import android.os.StrictMode;
-import android.provider.ContactsContract;
-import android.provider.Settings;
-import android.support.annotation.VisibleForTesting;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -50,17 +47,21 @@ public class RegisterActivity extends AppCompatActivity {
         addressString = addressEditText.getText().toString().trim();
         emailString = emailEditText.getText().toString().trim();
 
-        if (checkSpace() || checkUser() ) {
+        if (checkSpace()) {
             //Have Space
             MyAlertDialog objMyAlertDialog = new MyAlertDialog();
-            objMyAlertDialog.myDialog(RegisterActivity.this, R.drawable.ch2,"มีช่องว่างหรือ user ซ้ำ"
+            objMyAlertDialog.myDialog(RegisterActivity.this, R.drawable.ch2,"มีช่องว่าง"
                     ,"กรุณากรอกข้อมูลให้ครบทุกช่อง");
 
-        } else {
-            // No Space
-            confirmRegister();
+        } else if (checkUser()) {
+            // User ซ้ำ
+            MyAlertDialog objMyAlertDialog = new MyAlertDialog();
+            objMyAlertDialog.myDialog(RegisterActivity.this, R.drawable.ch2,"user ซ้ำ"
+                    ,"กรอก User ใหม่");
 
-        }  //if
+        } else {
+            confirmRegister();
+        }
 
     }//click save data
 
@@ -70,7 +71,8 @@ public class RegisterActivity extends AppCompatActivity {
         try {
             ManagTABLE objManagTABLE = new ManagTABLE(this);
             String[] myResultStrings = objManagTABLE.searchUser(userString);
-            bolstatus = true;
+            Log.d("15March", "Name ==> " + myResultStrings[3]);
+            bolstatus = true;   // User ซ้ำ
 
         } catch (Exception e) {
             bolstatus = false;
@@ -147,7 +149,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }// update to mySQL
 
-    private boolean checkSpace() {
+    private boolean checkSpace() {  //True Have Space
         return userString.equals("") ||
                 passwordString.equals("") ||
                 nameString.equals("") ||

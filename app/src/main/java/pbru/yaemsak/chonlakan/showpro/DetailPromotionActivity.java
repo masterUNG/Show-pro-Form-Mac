@@ -3,8 +3,8 @@ package pbru.yaemsak.chonlakan.showpro;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -15,8 +15,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.io.LineNumberReader;
 
 public class DetailPromotionActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -77,7 +75,7 @@ public class DetailPromotionActivity extends FragmentActivity implements OnMapRe
         Log.d("23Feb", "ID =>" + idString);
 
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.DATABASE_NAME,
-                MODE_PRIVATE,null);
+                MODE_PRIVATE, null);
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM promotionTABLE WHERE _id = " + "'" + idString + "'"
                 , null);
         cursor.moveToFirst();
@@ -102,7 +100,20 @@ public class DetailPromotionActivity extends FragmentActivity implements OnMapRe
         LatLng centerLatLng = new LatLng(douLatCenter, douLngCenter);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerLatLng, 15)); // ระยะ zoom
 
+        //Show Marker of Promotion
+        showMarkerOfPromotion(douLatCenter, douLngCenter);
+
+
+
     }//on MapReady
+
+    private void showMarkerOfPromotion(double douLatCenter, double douLngCenter) {
+
+        LatLng latLng = new LatLng(douLatCenter, douLngCenter);
+        mMap.addMarker(new MarkerOptions().position(latLng));
+
+    }   // showMarkerOfPromotion
+
 
     public void clickBackPromotion(View view) {
         startActivity(new Intent(DetailPromotionActivity.this, PromotionActivity.class));
