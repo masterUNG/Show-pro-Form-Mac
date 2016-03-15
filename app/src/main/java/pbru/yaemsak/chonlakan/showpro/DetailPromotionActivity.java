@@ -13,6 +13,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -110,7 +111,23 @@ public class DetailPromotionActivity extends FragmentActivity implements OnMapRe
     private void showMarkerOfPromotion(double douLatCenter, double douLngCenter) {
 
         LatLng latLng = new LatLng(douLatCenter, douLngCenter);
-        mMap.addMarker(new MarkerOptions().position(latLng));
+
+//        Maker แบบธรรมดา
+//        mMap.addMarker(new MarkerOptions()
+//                .position(latLng)
+//        .title(resultStrings[6])
+//        .snippet(resultStrings[1]));
+
+//      Maker แบบใช้รูปตัวเอง
+        mMap.addMarker(new MarkerOptions()
+        .position(latLng)
+        .icon(BitmapDescriptorFactory.fromResource(R.drawable.build4))
+        .title(resultStrings[6])
+        .snippet(resultStrings[1]));
+
+
+
+
 
     }   // showMarkerOfPromotion
 
